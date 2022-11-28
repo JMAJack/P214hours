@@ -12,22 +12,24 @@
 
 //variables
 
-struct Date //structure to store Dat
-{
-	int day; // Day 
-	int month; // month 
-	int year; // year
-	struct Time *apnttmptr;
-} apnt;
-
-struct Time // Store time
+typedef struct Time // Store time
 {
     int hour;
     int mins;
     
-}apnttm;
+}Time;
 
-struct Pinfo // structure to store patient's information
+typedef struct Date //structure to store Dat
+{
+	int day; // Day 
+	int month; // month 
+	int year; // year
+	Time Time;
+}date;
+
+
+
+typedef struct Pinfo // structure to store patient's information
 {
 	char F_name[MAX]; //First Name
 	char L_name[MAX]; // Last Name
@@ -36,7 +38,7 @@ struct Pinfo // structure to store patient's information
     char gender[8];// Gender eg. Male
     char email[MAXSIZE];// Email eg. Rawrinfo@Someemail.com
     int ID_num;
-    struct Date *apntptr;
+    date Date;
     
     // Anyone here that can debug this?
 
@@ -57,9 +59,6 @@ int hp;//idle variable
 void mainmenu();
 void regist();
 void create();
-void view();
-void update();
-void delete();
 void visit();
 void coverage();
 
@@ -74,10 +73,10 @@ int main()
     int choice = 0;
     do{
 
-        printf("\n------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        printf("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         printf("\t\t\t\t\t\t\t| Welcome to Dr. Mitchell Medical Centre |");
-        printf("\n------------------------------------------------------------------------------------------------------------------------------------------------\n");
-        printf("\n1.REGISTER PATIENT\t||\t2.CREATE APPOINTMENT\t||\t3.VIEW APPOINTMENT\t||\t4.UPDATE APPOINTMENT\t||\t5.DELETE APOINTMENT\t||    0.EXIT  ||\n\n");
+        printf("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        printf("\n1.REGISTER PATIENT\t||\t2.CREATE APPOINTMENT\t||\t3.VIEW APPOINTMENT\t||\t4.UPDATE APPOINTMENT\t||\t5.DELETE APOINTMENT\t||\n\t0.EXIT  ||\n\n");
         printf("\n------------------------------------------------------------------------------------------------------------------------------------------------\n");
         printf("\n\nPLEASE ENTER CHOICE:\t|\t");
         scanf("%d", &choice);
@@ -91,15 +90,6 @@ int main()
             case 2:
                 create(); //searching for an appointment
                 break;
-            case 3:
-                view(); //to view selected appointment
-                break;
-            case 4:
-                update();   //Updates Appointments
-                break;
-            case 5:
-                delete();   //Deletes Appointments
-                break;
         }
     }while(choice!=0);
 
@@ -112,6 +102,14 @@ int main()
     
     
     
+
+     
+
+
+
+
+    return 0;
+}
 
 void mainmenu()
     {  
@@ -137,15 +135,7 @@ void mainmenu()
             case 2:
                 create(); //searching for an appointment
                 break;
-            case 3:
-                view(); //to view selected appointment
-                break;
-            case 4:
-                update();   //Updates Appointments
-                break;
-            case 5:
-                delete();   //Deletes Appointments
-                break;
+
         }
 
 
@@ -158,11 +148,10 @@ void mainmenu()
     
     }
      
-     
     void regist()
     {//registering patient
 
-        patient *patient;//pointer
+        patient *patients;//pointer
         int i;
         FILE *fp;
         printf("\nPlease enter number of patients:\t|\t");
@@ -180,7 +169,7 @@ void mainmenu()
         {        
         printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         printf("\nEnter the name of the patient [First name Last Name]:\t\t\t|\t");
-        scanf("%15s %15s",patients[i].Name.F_name, patients[i].Name.L_name);
+        scanf("%15s %15s",patients[i].F_name, patients[i].L_name);
         printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
         printf("Enter the age of the patient:\t\t\t\t\t\t|\t");
@@ -192,16 +181,16 @@ void mainmenu()
 	    printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 		
         printf("Enter the telephone number of the patient:\t\t\t\t\t\t|\t");
-        scanf("%d", &patients[i].telenum);
+        scanf("%s", patients[i].telenum);
         printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
 
 		printf("Enter the email address of the participant:\t\t\t\t\t\t|\t");
-		scanf("%s", participants[i].email);
+		scanf("%s", patients[i].email);
         printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
-		printf("Assigned ID for Patient:\t\t\t\t\t\t\t|\t",ID_num);
-	    printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+		//printf("Assigned ID for Patient:\t\t\t\t\t\t\t|\t",ID_num);
+	    //printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
                 
         int hp = 0;
             printf("Would you like to Proceed? [yes = 1, no = any number]\t|\t");
@@ -236,7 +225,7 @@ patient *patients;//pointer
         int n, found=0;
         fp=fopen("Patient.dat", "r");
         printf("\nEnter id number to search:\t|\t");
-        scanf("%d",&ID_num);
+        scanf("%d",&patients[i].ID_num);
 
         system("clear");
     
@@ -250,10 +239,10 @@ patient *patients;//pointer
 	printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 	
     printf("Enter the date of birth of the participant [24-Hour format] (hh : mm):\t\t\t\t|\t");
-	scanf("%d %d", &patients[i].Time.hour, &patients[i].Time.mins);
+	scanf("%d %d", &patients[i].Date.Time.hour, &patients[i].Date.Time.mins);
 	printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
-    if (patients[i].Time.mins != 00)
+    if (patients[i].Date.Time.mins != 00)
     {
          printf("\n");
             printf("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
@@ -263,7 +252,7 @@ patient *patients;//pointer
     }
     else 
     {
-        if (&patients[i].Time.hour > 19 ||&patients[i].Time.hour < 8)
+        if (patients[i].Date.Time.hour > 19 ||patients[i].Date.Time.hour < 8)
         {
             printf("\n");
             printf("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
@@ -325,10 +314,3 @@ patient *patients;//pointer
                     }
 
 }
-
-
-
-    return 0;
-}
-
-
