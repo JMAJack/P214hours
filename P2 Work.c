@@ -11,6 +11,22 @@
 #define MAXSIZE 70 
 
 //variables
+
+struct Date //structure to store Dat
+{
+	int day; // Day 
+	int month; // month 
+	int year; // year
+	struct Time *apnttmptr;
+} apnt;
+
+struct Time // Store time
+{
+    int hour;
+    int mins;
+    
+}apnttm;
+
 struct Pinfo // structure to store patient's information
 {
 	char F_name[MAX]; //First Name
@@ -20,23 +36,13 @@ struct Pinfo // structure to store patient's information
     char gender[8];// Gender eg. Male
     char email[MAXSIZE];// Email eg. Rawrinfo@Someemail.com
     int ID_num;
-    struct Date;
-    struct Time;
+    struct Date *apntptr;
+    
+    // Anyone here that can debug this?
 
 }patient;
 
-struct Date //structure to store Dat
-{
-	int day; // Day 
-	int month; // month 
-	int year; // year
-};
 
-struct Time // Store time
-{
-    int hour;
-    int mins;
-}
 
 int size; //global variable
 int hp;//idle variable
@@ -156,7 +162,7 @@ void mainmenu()
     void regist()
     {//registering patient
 
-        patient *patients;//pointer
+        patient *patient;//pointer
         int i;
         FILE *fp;
         printf("\nPlease enter number of patients:\t|\t");
@@ -222,6 +228,22 @@ void mainmenu()
 
 void create()
 {
+    
+patient *patients;//pointer
+        int i;
+        FILE *fp;
+
+        int n, found=0;
+        fp=fopen("Patient.dat", "r");
+        printf("\nEnter id number to search:\t|\t");
+        scanf("%d",&ID_num);
+
+        system("clear");
+    
+        // clear screen
+            system("clear"); 
+
+        fp=fopen("appointment.txt", "w"); //creating file
 
     printf("Enter the date of birth of the participant(dd mm yyyy):\t\t\t\t|\t");
 	scanf("%d %d %d", &patients[i].Date.day, &patients[i].Date.month, &patients[i].Date.year);
@@ -258,7 +280,7 @@ void create()
         }
     }
 
-         int hp = 0;
+        
 
             void visit()
             {
@@ -278,16 +300,17 @@ void create()
             {
                 // Age Group with Coverage
                 printf("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-                printf("|\tAge Group\t||\tCoverage (%)\t\t|");
+                printf("|\tAge Group\t||\tCoverage (x/100)\t\t|");
                 printf("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-                printf("|\t0 - 11\t\t||\t\t40%\t\t|\n");
-                printf("|\t12 - 18\t\t||\t\t35%\t\t|\n");
-                printf("|\t19 - 25\t\t||\t\t30%\t\t|\n");
-                printf("|\t26 - 45\t\t||\t\t25%\t\t|\n");
-                printf("|\t46 - 100\t||\t\t25%\t\t|");
+                printf("|\t0 - 11\t\t||\t\t40\t\t|\n");
+                printf("|\t12 - 18\t\t||\t\t35\t\t|\n");
+                printf("|\t19 - 25\t\t||\t\t30\t\t|\n");
+                printf("|\t26 - 45\t\t||\t\t25\t\t|\n");
+                printf("|\t46 - 100\t||\t\t25\t\t|");
                 printf("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
-            }
+            } 
+            int hp = 0;
             printf("What is the type of visit?\t|\t");
                 scanf("%d",&hp);
                     if (hp != 1)
