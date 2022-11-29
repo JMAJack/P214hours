@@ -334,37 +334,38 @@ patient *patients;//pointer
 
 void view()
 {
-    participant p2;
+    patient patient;
     FILE *fp;
     int n, found=0;
-    fp=fopen("Participants.txt", "r");
+    int ID_num;
+    fp=fopen("Patient.txt", "r");
     printf("\nEnter id number to search:\t|\t");
-    scanf("%d",&n);
+    scanf("%d",&ID_num);
     system("clear");
-    while(fread(&p2,sizeof(participant),1,fp))
+    while(fread(&patient,sizeof(patient),1,fp))
     {
-        if(p2.Id_num == n)
+        if(patient.ID_num == n)
         
         {
             found=1;
 	        printf("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-	        printf("\n\t\t\t\t\t\t\t\t\t|Participant's Information|\n");
+	        printf("\n\t\t\t\t\t\t\t\t\t|Patient's Information|\n");
 	        printf("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("The participant's name is:\t\t|\t %s %s\n",p2.Name.F_name, p2.Name.L_name);
+            printf("The participant's name is:\t\t|\t %s %s\n",patient.F_name, patient.L_name);
             printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("The participant's age is:\t\t|\t %d\n",p2.age);
+            printf("The participant's age is:\t\t|\t %d\n",patient.age);
             printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("The participant's birthday is:\t\t|\t %d/%d/%d\n",p2.DOB.day,p2.DOB.month,p2.DOB.year);
+            printf("The participant's gender is:\t\t|\t %s\n",patient.gender);
             printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("The participant's gender is:\t\t|\t %s\n",p2.gender);
+            printf("The participant's Telephone number is:\t\t|\t %s\n",patient.telenum);
             printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("The participant's school is:\t\t|\t %s\n",p2.school);
+            printf("The participant's email is:\t\t|\t %s\n",patient.email);
             printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("The participant's ID is:\t\t|\t %d\n",p2.Id_num);
+            printf("The participant's ID is:\t\t|\t %s\n",patient.ID_num);
             printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("The participant's event type is:\t|\t %s\n",p2.Event_type);  
-            printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-        
+
+
+            
            int hp = 0;
             printf("Would you like to Proceed? [yes = 1, no = any number]\t|\t");
             scanf("%d",&hp);
@@ -385,7 +386,7 @@ void view()
         {
             printf("\n");
             printf("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            printf("\t\t\t\t\t\t\t\t\t\t    | Participant not found |\n");
+            printf("\t\t\t\t\t\t\t\t\t\t    | Patient not found |\n");
             printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
             exit(0); 
         }
@@ -394,6 +395,6 @@ void view()
     }
     fclose(fp);        
 }
-}
+
 
 
