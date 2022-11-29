@@ -1,6 +1,6 @@
-// Names: , Objective
-// Jesus Christ
-//Jon Marc Jackson (2106386): The entire project, 
+// Names: 
+// Jon Marc Jackson (2106386): The code, 
+//
 //Date: 28/11/2022
 
 #include <stdio.h>
@@ -60,6 +60,7 @@ void mainmenu();
 void regist();
 void create();
 void view();
+void update();
 void delete();
 void info();
 void visit();
